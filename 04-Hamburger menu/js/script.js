@@ -11,25 +11,21 @@ $(function () {
   $btnMenu.on("click", function (e) {
     e.preventDefault();
 
-    //버튼에 active 클래스 토글
-    $(this).toggleClass("active");
-
-    //dim 활성화
-    $dim.fadeToggle();
-
     //$menu가 보여지게 : isActive조건에 따라서
     if (isActive === false) {
       //$menu 보여지게
-      slideMenu(0);
-      isActive = true;
+      openMenu();
     } else {
       //$menu 안보여지게
-      slideMenu("-100%");
-      isActive = false;
+      closeMenu();
     }
   });
 
+  //dim클릭했을 때
+  $dim.on("click", closeMenu);
+
   //공통의 동작을 함수로 정의
+  //1. 메뉴의 움직임 (보이거나, 숨기거나)
   function slideMenu(pos) {
     $menu.animate(
       {
@@ -38,5 +34,20 @@ $(function () {
       350
     );
     isActive = true;
+  }
+
+  //2. openMenu : 메뉴를 보이게( 메뉴 + active부여 + dim fadeIn + isActive)
+  function openMenu() {
+    $btnMenu.addClass("active");
+    $dim.fadeIn();
+    slideMenu(0);
+    isActive = true;
+  }
+  //3. closeMenu : 메뉴를 안 보이게( 메뉴 + active삭제 + dim fadeOut + isActive)
+  function closeMenu() {
+    $btnMenu.removeClass("active");
+    $dim.fadeOut();
+    slideMenu("-100%");
+    isActive = false;
   }
 });
