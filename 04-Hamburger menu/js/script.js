@@ -18,24 +18,25 @@ $(function () {
     $dim.fadeToggle();
 
     //$menu가 보여지게 : isActive조건에 따라서
-    if (isActive === false) {
+    if (!isActive) {
       //$menu 보여지게
-      $menu.animate(
-        {
-          left: 0,
-        },
-        350
-      );
+      slideMenu(0);
       isActive = true;
     } else {
       //$menu 안보여지게
-      $menu.animate(
-        {
-          left: "-100%", //px제외는 문자열로 던져야함
-        },
-        350
-      );
+      slideMenu("-100%");
       isActive = false;
     }
   });
+
+  //공통의 동작을 함수로 정의
+  function slideMenu(pos) {
+    $menu.animate(
+      {
+        left: pos,
+      },
+      350
+    );
+    isActive = true;
+  }
 });
