@@ -12,13 +12,8 @@ $(function () {
     e.preventDefault();
 
     //$menu가 보여지게 : isActive조건에 따라서
-    if (isActive === false) {
-      //$menu 보여지게
-      openMenu();
-    } else {
-      //$menu 안보여지게
-      closeMenu();
-    }
+    // isActive === false ? openMenu() : closeMenu();
+    !isActive ? openMenu() : closeMenu();
   });
 
   //dim클릭했을 때
