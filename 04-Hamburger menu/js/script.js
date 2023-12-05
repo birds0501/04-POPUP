@@ -34,15 +34,36 @@ $(function () {
   //2. openMenu : 메뉴를 보이게( 메뉴 + active부여 + dim fadeIn + isActive)
   function openMenu() {
     $btnMenu.addClass("active");
-    $dim.fadeIn();
+    $dim.stop().fadeIn();
     slideMenu(0);
     isActive = true;
   }
   //3. closeMenu : 메뉴를 안 보이게( 메뉴 + active삭제 + dim fadeOut + isActive)
   function closeMenu() {
     $btnMenu.removeClass("active");
-    $dim.fadeOut();
+    $dim.stop().fadeOut();
     slideMenu("-100%");
     isActive = false;
+
+    //서브메뉴 초기화
+    initSubmenu();
+  }
+
+  //서브메뉴 동작
+  const $menuList = $(".menu > li");
+  const $submenu = $(".submenu");
+
+  $menuList.on("click", function (e) {
+    e.preventDefault();
+    initSubmenu();
+
+    $(this).toggleClass("on");
+    $(this).find($submenu).slideToggle();
+  });
+
+  //서브메뉴 초기화를 함수로 분리
+  function initSubmenu() {
+    $submenu.stop().slideUp();
+    $menuList.removeClass("on");
   }
 });
